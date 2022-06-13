@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>header}}
+    <title>Content</title>
+</head>
+<body>
+    {{>navbar}}
+    {{!-- Content Data Youtube links in carosel --}}
+          <div class="content_bg d-sm-flex align-items-center justify-content-between w-100" style="height: 100vh;">
+  <div class="col-md-4 mx-auto mb-4 mb-sm-0 headline">
+    <span class="text-secondary text-uppercase" style="font-size:1.8rem; line-height:1.6em">MERN stack is a collection of technologies that enables faster application development. It is used by developers worldwide. The main purpose of using MERN stack is to develop apps using JavaScript only. This is because the four technologies that make up the technology stack are all JS-based.</span>
+    <h1 class="display-4 my-4 font-weight-bold" style="color: var(--helper-tint);">This is a <span style="color: #9B5DE5;">Mern Backend Project</span></h1>
+    <a href="#" class="content-button_mern"><button>Learn More </button></a>
+  </div>
+  <!-- in mobile remove the clippath -->
+  <div class="col-md-8 h-100 clipped" style="min-height: 350px; background-image: url(https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80); background-position: center; background-size: cover;">
+
+  </div>
+</div>
+    {{!-- Footer --}}
+    {{>footer}}
+</body>
+</html>
