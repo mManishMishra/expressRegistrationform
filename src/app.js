@@ -2,6 +2,7 @@
 const express =  require("express");
 const path = require("path");
 const hbs =  require("hbs");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 require("./db/conn");
@@ -48,7 +49,16 @@ app.post("/register", async(req,res)=>{
                 password:password,
                 confirmpassword:conmpassword
             })
+
+
+            // Generating jwt token for users registeration 
+
+
+            const token = await registerEmployee.generateAuthToken();
+
+            // middleware pre and post concept
              const registered = await  registerEmployee.save();
+             console.log(registered);
              res.status(201).render("login");
         }else{
             res.status(404).send("Password Not Matching");
@@ -80,9 +90,15 @@ app.post("/login",  async(req,res)=>{
      const email = req.body.email;
      const password = req.body.password;
 
-     const useremail = await Register.findOne({email:email});
+     const userEmail = await Register.findOne({email:email});
 
-     if(useremail.password===password){
+     const isMatch =await bcrypt.compare(password , userEmail.password);
+
+     
+
+     if(isMatch){
+        const token = await userEmail.generateAuthToken();
+     console.log(`the jwt for current user login is ${token}`);
            res.status(201).render("content")
      }else{
         res.render("error");
@@ -94,6 +110,18 @@ app.post("/login",  async(req,res)=>{
 
 })
 
+// Learning jwt 
+// const jwt = require("jsonwebtoken");
+
+// const createToken = async()=>{
+//     const token = await jwt.sign({_id:"62a76a9b0b243c7676b770df"},"thisisrandomtextforgeneratingjwttoken");
+//     console.log(token);
+
+//     const userVerify = await jwt.verify(token,"thisisrandomtextforgeneratingjwttoken");
+//     console.log(userVerify );
+// }
+
+// createToken();
 
 
 
