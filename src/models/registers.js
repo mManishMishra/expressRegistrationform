@@ -37,7 +37,7 @@ const employeeSchema = new mongoose.Schema({
 // generating jwt for user login 
 employeeSchema.methods.generateAuthToken= async function(){
         try{
-           const token = jwt.sign({_id:this._id}, "thisisarandomtextandthistextistogeneratetoken",{expiresIn:"3000s"});
+           const token = jwt.sign({_id:this._id.toString()}, process.env.SECRET_Key);
            this.tokens = this.tokens.concat({token});
            await this.save();
            console.log(token);
@@ -54,8 +54,6 @@ employeeSchema.pre("save" , async function(next) {
      if(this.isModified("password")){
         
         this.password =  await bcrypt.hash(this.password, 10); 
-        console.log(`the current hashpassword is ${this.password}`);
-
         this.confirmpassword = await bcrypt.hash(this.password ,10)
      }
         next();

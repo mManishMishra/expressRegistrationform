@@ -1,6 +1,8 @@
 const { default: mongoose } = require("mongoose")
+require("dotenv").config();
 
-mongoose.connect("mongodb://localhost:27017/registrationform", {useNewUrlParser:true,
+
+mongoose.connect(process.env.DB_localhost, {useNewUrlParser:true,
         useUnifiedTopology:true}).then(()=>{
             console.log("connected to mongodb Database");
         }).catch((err)=>{
